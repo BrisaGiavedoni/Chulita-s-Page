@@ -1,0 +1,165 @@
+
+.nav {
+  background-color: #0a0a0a;
+  border-bottom: 1px solid #c026d3;
+  position: fixed; 
+  top: 0;
+  left: 0;          
+  right: 0;         
+  z-index: 100;
+  width: 100%;
+}
+
+.logoText {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.6rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #22d3ee, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 6px #22d3ee) drop-shadow(0 0 12px #a855f7);
+}
+ 
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+ 
+/* Logo */
+.logoLink {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+ 
+.logoImg {
+  height: 54px;
+  width: 54px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+ 
+/* Links desktop */
+.links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0 auto;
+}
+ 
+.link {
+  color: #e5e7eb;
+  text-decoration: none;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  transition: color 0.2s, text-shadow 0.2s;
+}
+
+.link:hover {
+  color: #c084fc;
+  text-shadow: 0 0 8px #c026d3, 0 0 16px #a855f7;
+}
+/* Botón carrito */
+.cartBtn {
+  position: relative;
+  background-color: #c026d3;
+  border: none;
+  border-radius: 8px;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.2s;
+}
+ 
+.cartBtn:hover {
+  background-color: #a21caf;
+}
+ 
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: #a855f7;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ 
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+ 
+.bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: #e5e7eb;
+  border-radius: 2px;
+}
+ 
+/* Menú mobile */
+.mobileMenu {
+  background-color: #111;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+}
+ 
+.mobileLink {
+  color: #e5e7eb;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+ 
+.mobileLink:hover {
+  color: #c084fc;
+}
+ 
+/* Responsive */
+@media (max-width: 640px) {
+  .links {
+    display: none;
+  }
+ 
+  .hamburger {
+    display: flex;
+  }
+}
+ 
+@media (min-width: 641px) {
+  .mobileMenu {
+    display: none;
+  }
+}
