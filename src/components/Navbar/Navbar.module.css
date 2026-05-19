@@ -41,10 +41,11 @@
 }
  
 .logoImg {
-  height: 54px;
-  width: 54px;
-  object-fit: contain;
+  height: 52px;
+  width: 52px;
+  object-fit: contain;  
   border-radius: 50%;
+  background-color: #0a0a0a; 
 }
  
 /* Links desktop */
