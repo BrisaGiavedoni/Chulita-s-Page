@@ -1,0 +1,154 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0a0a0a;
+  overflow: hidden;
+}
+ 
+/* Partículas */
+.particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+ 
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background-color: #c026d3;
+  opacity: 0.6;
+  animation: float 4s ease-in-out infinite alternate;
+}
+ 
+.particle:nth-child(odd) {
+  background-color: #22d3ee;
+}
+ 
+
+ 
+/* Contenido central */
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 2rem 1.5rem;
+}
+ 
+/* Logo */
+.logo {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  border-radius: 50%;
+  background-color: #0a0a0a;
+  filter: drop-shadow(0 0 16px #c026d3) drop-shadow(0 0 32px #a855f7);
+  animation: pulse 3s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { filter: drop-shadow(0 0 16px #c026d3) drop-shadow(0 0 32px #a855f7); }
+  50%       { filter: drop-shadow(0 0 28px #22d3ee) drop-shadow(0 0 48px #c026d3); }
+}
+ 
+/* Título */
+.title {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  font-weight: 700;
+  background: linear-gradient(90deg, #22d3ee, #a855f7, #c026d3, #22d3ee);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: neonSlide 3s linear infinite;
+  line-height: 1.1;
+  margin: 0;
+}
+
+@keyframes neonSlide {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+ 
+/* Subtítulo */
+.subtitle {
+  font-size: 1.15rem;
+  color: #e5e7eb;
+  font-family: sans-serif;
+  margin: 0;
+}
+ 
+/* Ubicación */
+.location {
+  font-size: 0.95rem;
+  color: #c026d3;
+  font-family: sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0;
+}
+ 
+/* Botones */
+.buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+ 
+.btnPrimary {
+  background-color: #22d3ee;
+  color: #0a0a0a;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.85rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+ 
+.btnPrimary:hover {
+  box-shadow: 0 0 16px #22d3ee;
+  transform: translateY(-2px);
+}
+ 
+.btnWhatsapp {
+  background-color: #c026d3;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.85rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+ 
+.btnWhatsapp:hover {
+  box-shadow: 0 0 16px #c026d3;
+  transform: translateY(-2px);
+}
+
+ 
+/* Responsive */
+@media (max-width: 480px) {
+  .buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+ 
+  .btnPrimary,
+  .btnWhatsapp {
+    justify-content: center;
+  }
+}
