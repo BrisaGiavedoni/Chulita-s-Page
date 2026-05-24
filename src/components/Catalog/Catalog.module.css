@@ -1,0 +1,251 @@
+/* ── Section ── */
+.catalog {
+  padding: 64px 24px 80px;
+  background: #0d0d0d;
+  min-height: 100vh;
+}
+
+/* ── Header ── */
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.title {
+  font-family: "Pacifico", "Brush Script MT", cursive;
+  font-size: 52px;
+  font-weight: 400;
+  color: #c084fc;
+  margin: 0 0 10px;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: #666;
+  margin: 0;
+  letter-spacing: 0.3px;
+}
+
+/* ── Filters ── */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 48px;
+}
+
+.filterBtn {
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid #333;
+  background: transparent;
+  color: #ccc;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.2px;
+}
+
+.filterBtn:hover {
+  border-color: #c084fc;
+  color: #fff;
+}
+
+.filterActive {
+  background: #00e5c0;
+  border-color: #00e5c0;
+  color: #000;
+  font-weight: 700;
+}
+
+.filterActive:hover {
+  border-color: #00e5c0;
+  color: #000;
+}
+
+/* ── Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 20px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ── Card ── */
+.card {
+  background: #161616;
+  border: 1px solid #252525;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.card:hover {
+  border-color: #c084fc55;
+  transform: translateY(-4px);
+}
+
+/* ── Image ── */
+.imageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: #1c1c1c;
+  overflow: hidden;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 72px;
+}
+
+/* Gradient overlay with name */
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 48px 14px 14px;
+  background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, transparent 100%);
+}
+
+.cardName {
+  margin: 0 0 4px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.cardDesc {
+  margin: 0;
+  font-size: 12px;
+  color: #999;
+}
+
+/* ── Prices ── */
+.prices {
+  padding: 12px 14px 8px;
+  border-top: 1px solid #1e1e1e;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.priceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.priceLabel {
+  font-size: 12px;
+  color: #666;
+}
+
+.priceValue {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.priceGreen {
+  color: #4ade80;
+}
+
+/* ── Buttons ── */
+.footer {
+  display: flex;
+  gap: 8px;
+  padding: 10px 14px 14px;
+  margin-top: auto;
+}
+
+.btnMinor,
+.btnMajor {
+  flex: 1;
+  padding: 9px 8px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btnMinor {
+  background: #c084fc;
+  color: #000;
+  border: none;
+}
+
+.btnMinor:hover {
+  background: #a855f7;
+  color: #fff;
+}
+
+.btnMajor {
+  background: transparent;
+  color: #4ade80;
+  border: 1px solid #4ade80;
+}
+
+.btnMajor:hover {
+  background: rgba(74, 222, 128, 0.1);
+}
+
+/* ── Empty ── */
+.empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: #555;
+  font-size: 16px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .catalog {
+    padding: 40px 14px 60px;
+  }
+
+  .title {
+    font-size: 36px;
+  }
+
+  .filters {
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  .filterBtn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+  }
+
+  .footer {
+    flex-direction: column;
+  }
+}
