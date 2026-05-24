@@ -1,17 +1,25 @@
 import { useState } from "react";
 import { CartProvider } from "./context/CartContext";
 import Navbar from "./components/Navbar/Navbar";
-import Products from "./components/Products/Products";
 import Cart from "./components/Cart/Cart";
 
 function App() {
-  const [showCart, setShowCart] = useState(false);
+   const [selectedWorld, setSelectedWorld] = useState(null);
+ 
+  const handleSelectWorld = (worldId) => {
+    setSelectedWorld(worldId);
+    setTimeout(() => {
+      document.getElementById("productos")?.scrollIntoView({ behavior: "smooth" });
+    }, 50);
+  };
 
   return (
     <CartProvider>
-      <Navbar onCartClick={() => setShowCart(!showCart)} />
-      {showCart && <Cart />}
-      <Products />
+      <div id="carrito">
+        <Cart />
+      </div>
+      <Navbar />
+
     </CartProvider>
   );
 }
