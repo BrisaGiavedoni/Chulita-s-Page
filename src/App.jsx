@@ -1,15 +1,18 @@
+import { useState } from "react";
+import { CartProvider } from "./context/CartContext";
 import Navbar from "./components/Navbar/Navbar";
-import Footer from "./components/Footer/Footer";
-import Hero from "./components/Hero/Hero"
-
+import Products from "./components/Products/Products";
+import Cart from "./components/Cart/Cart";
 
 function App() {
+  const [showCart, setShowCart] = useState(false);
+
   return (
-    <>
-      <Navbar />
-     <Hero/>
-     <Footer />
-    </>
+    <CartProvider>
+      <Navbar onCartClick={() => setShowCart(!showCart)} />
+      {showCart && <Cart />}
+      <Products />
+    </CartProvider>
   );
 }
 

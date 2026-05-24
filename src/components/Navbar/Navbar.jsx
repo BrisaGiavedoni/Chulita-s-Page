@@ -1,29 +1,29 @@
 import { useState } from "react";
+import { useCart } from "../../context/CartContext";
 import logo from "../../assets/logo-chulitas.jpg";
 import styles from "./Navbar.module.css";
- 
+
 const NAV_LINKS = [
   { label: "Inicio", href: "#inicio" },
   { label: "Productos", href: "#productos" },
   { label: "Catálogo", href: "#catalogo" },
   { label: "Contacto", href: "#contacto" },
 ];
- 
-export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [cartCount] = useState(0);
 
+export default function Navbar({ onCartClick }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { getCartCount } = useCart();
+  const cartCount = getCartCount();
 
   return (
     <nav className={styles.nav}>
       <div className={styles.container}>
- 
         {/* Logo */}
         <a href="#" className={styles.logoLink}>
           <img src={logo} alt="Chulita's Lovers" className={styles.logoImg} />
           <span className={styles.logoText}>ChulisLovers</span>
         </a>
- 
+
         {/* Links desktop */}
         <ul className={styles.links}>
           {NAV_LINKS.map((link) => (
@@ -34,13 +34,17 @@ export default function Navbar() {
             </li>
           ))}
         </ul>
- 
+
         {/* Carrito */}
-        <button className={styles.cartBtn} aria-label="Ver carrito">
+        <button
+          className={styles.cartBtn}
+          aria-label="Ver carrito"
+          onClick={onCartClick}
+        >
           <CartIcon />
           {cartCount > 0 && <span className={styles.badge}>{cartCount}</span>}
         </button>
- 
+
         {/* Hamburger mobile */}
         <button
           className={styles.hamburger}
@@ -52,7 +56,7 @@ export default function Navbar() {
           <span className={styles.bar} />
         </button>
       </div>
- 
+
       {/* Menú mobile */}
       {menuOpen && (
         <ul className={styles.mobileMenu}>
@@ -72,7 +76,7 @@ export default function Navbar() {
     </nav>
   );
 }
- 
+
 function CartIcon() {
   return (
     <svg
