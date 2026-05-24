@@ -39,7 +39,7 @@ export default function Hero() {
             Ver productos
           </a>
           <a
-            href="https://wa.me/5493412345678"
+            href="https://wa.me/+5493412510579"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.btnWhatsapp}

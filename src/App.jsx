@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CartProvider } from "./context/CartContext";
 import Navbar from "./components/Navbar/Navbar";
+import Hero from "./components/Hero/Hero";
 import Worlds from "./components/Worlds/Worlds";
 import Catalog from "./components/Catalog/Catalog";
 import Cart from "./components/Cart/Cart";
@@ -21,6 +22,7 @@ function App() {
   return (
     <CartProvider>
       <Navbar onCartClick={() => setShowCart(!showCart)} />
+        <Hero />
       {showCart && <Cart />}
       <Worlds onSelectWorld={handleSelectWorld} />
       <Catalog
