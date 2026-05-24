@@ -15,7 +15,7 @@ import { GiMoneyStack } from "react-icons/gi";
 
 export default function Footer() {
   return (
-    <footer className={styles.footer}>
+    <footer id="footer" className={styles.footer}>
       <div className={styles.container}>
         {/* Sección Marca */}
         <div className={styles.section}>
@@ -50,7 +50,7 @@ export default function Footer() {
           <h4 className={styles.sectionTitle}>Información</h4>
           <div className={styles.infoItem}>
             <FiHeart className={styles.icon} />
-            <p className={styles.text}>Ropa femenina para todas las edades</p>
+            <p className={styles.text}>Ropa femenina para jovenes y adultas</p>
           </div>
           <div className={styles.infoItem}>
             <FiStar className={styles.icon} />
@@ -97,7 +97,18 @@ export default function Footer() {
           <p className={styles.consultaSubtitle}>
             Escribinos y te respondemos al toque
           </p>
-          <button className={styles.whatsappBtn}>
+          <button
+            className={styles.whatsappBtn}
+            onClick={() => {
+              const mensaje = encodeURIComponent(
+                "Hola! Tengo una consulta sobre sus productos. ¿Podrían ayudarme?",
+              );
+              window.open(
+                `https://wa.me/5493412510579?text=${mensaje}`,
+                "_blank",
+              );
+            }}
+          >
             <FiSend className={styles.btnIcon} />
             Chateanos ahora
           </button>

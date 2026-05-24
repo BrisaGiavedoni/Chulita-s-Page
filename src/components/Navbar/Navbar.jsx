@@ -5,9 +5,9 @@ import styles from "./Navbar.module.css";
 
 const NAV_LINKS = [
   { label: "Inicio",    href: "#inicio" },
-  { label: "Mundos",    href: "#mundos" },
+  { label: "Mundos",    href: "#worlds" },
   { label: "Productos", href: "#productos" },
-  { label: "Contacto",  href: "#contacto" },
+  { label: "Contacto",  href: "#footer" },
 ];
 
 function CartIcon() {
@@ -22,10 +22,12 @@ function CartIcon() {
 }
 
 function CartDropdown({ onClose }) {
-  const { cartItems, removeFromCart, updateQuantity, getCartTotal, clearCart } = useCart();
+  const {
+    cartItems, removeFromCart, updateQuantity,
+    getCartTotal, clearCart, openCartModal,
+  } = useCart();
   const ref = useRef(null);
 
-  // Cerrar al hacer click fuera
   useEffect(() => {
     const handler = (e) => {
       if (ref.current && !ref.current.contains(e.target)) onClose();
@@ -33,6 +35,11 @@ function CartDropdown({ onClose }) {
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, [onClose]);
+
+  const handleFinalizarCompra = () => {
+    onClose();          // cierra el dropdown
+    openCartModal();    // abre el modal del carrito
+  };
 
   return (
     <div className={styles.cartDropdown} ref={ref}>
@@ -57,20 +64,10 @@ function CartDropdown({ onClose }) {
                   </span>
                 </div>
                 <div className={styles.dropdownItemControls}>
-                  <button
-                    className={styles.qtyBtn}
-                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                  >−</button>
+                  <button className={styles.qtyBtn} onClick={() => updateQuantity(item.id, item.quantity - 1)}>−</button>
                   <span className={styles.qtyNum}>{item.quantity}</span>
-                  <button
-                    className={styles.qtyBtn}
-                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                  >+</button>
-                  <button
-                    className={styles.removeBtn}
-                    onClick={() => removeFromCart(item.id)}
-                    aria-label="Eliminar"
-                  >🗑️</button>
+                  <button className={styles.qtyBtn} onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                  <button className={styles.removeBtn} onClick={() => removeFromCart(item.id)} aria-label="Eliminar">🗑️</button>
                 </div>
                 <span className={styles.dropdownItemTotal}>
                   ${(item.price * item.quantity).toLocaleString("es-AR")}
@@ -84,18 +81,10 @@ function CartDropdown({ onClose }) {
               <span>Total</span>
               <span>${getCartTotal().toLocaleString("es-AR")}</span>
             </div>
-            <a
-              href="#carrito"
-              className={styles.dropdownCheckout}
-              onClick={() => {
-                onClose();
-                setTimeout(() => {
-                  document.getElementById("carrito")?.scrollIntoView({ behavior: "smooth" });
-                }, 50);
-              }}
-            >
+            {/* Botón que abre el modal — no hace scroll, no resetea nada */}
+            <button className={styles.dropdownCheckout} onClick={handleFinalizarCompra}>
               Finalizar compra →
-            </a>
+            </button>
             <button className={styles.dropdownClear} onClick={clearCart}>
               Vaciar carrito
             </button>
@@ -112,25 +101,32 @@ export default function Navbar() {
   const { getCartCount } = useCart();
   const cartCount = getCartCount();
 
-  const handleNavClick = (href) => {
-    setMenuOpen(false);
-    const id = href.replace("#", "");
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
+const handleNavClick = (href) => {
+  setMenuOpen(false);
+  const id = href.replace("#", "");
+
+  if (id === "inicio") {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+
+  const el = document.getElementById(id);
+  if (el) {
+    const top = el.getBoundingClientRect().top + window.scrollY - 70;
+    window.scrollTo({ top, behavior: "smooth" });
+  }
+};
 
   return (
     <nav className={styles.nav}>
       <div className={styles.container}>
 
-        {/* Logo */}
         <a href="#" className={styles.logoLink}
           onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
           <img src={logo} alt="Chulita's Lovers" className={styles.logoImg} />
           <span className={styles.logoText}>ChulisLovers</span>
         </a>
 
-        {/* Links desktop */}
         <ul className={styles.links}>
           {NAV_LINKS.map((link) => (
             <li key={link.label}>
@@ -142,7 +138,6 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Carrito */}
         <div className={styles.cartWrap}>
           <button
             className={`${styles.cartBtn} ${cartOpen ? styles.cartBtnActive : ""}`}
@@ -155,7 +150,6 @@ export default function Navbar() {
           {cartOpen && <CartDropdown onClose={() => setCartOpen(false)} />}
         </div>
 
-        {/* Hamburger */}
         <button className={styles.hamburger} onClick={() => setMenuOpen(!menuOpen)} aria-label="Abrir menú">
           <span className={`${styles.bar} ${menuOpen ? styles.barOpen1 : ""}`} />
           <span className={`${styles.bar} ${menuOpen ? styles.barOpen2 : ""}`} />
@@ -163,7 +157,6 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Menú mobile */}
       {menuOpen && (
         <ul className={styles.mobileMenu}>
           {NAV_LINKS.map((link) => (

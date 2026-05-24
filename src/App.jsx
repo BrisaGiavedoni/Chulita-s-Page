@@ -1,48 +1,40 @@
 import { useState } from "react";
 import { CartProvider } from "./context/CartContext";
 import Navbar from "./components/Navbar/Navbar";
-import Cart from "./components/Cart/Cart";
-
-function App() {
-   const [selectedWorld, setSelectedWorld] = useState(null);
- 
-  const handleSelectWorld = (worldId) => {
-    setSelectedWorld(worldId);
-    setTimeout(() => {
-      document.getElementById("productos")?.scrollIntoView({ behavior: "smooth" });
 import Hero from "./components/Hero/Hero";
 import Worlds from "./components/Worlds/Worlds";
 import Catalog from "./components/Catalog/Catalog";
 import Cart from "./components/Cart/Cart";
+import Footer from "./components/Footer/Footer";
 
 function App() {
-  const [showCart, setShowCart] = useState(false);
   const [selectedWorld, setSelectedWorld] = useState(null);
 
   const handleSelectWorld = (worldId) => {
     setSelectedWorld(worldId);
-    // Small timeout lets React re-render with the new filter before scrolling
     setTimeout(() => {
-      const section = document.getElementById("productos");
-      if (section) section.scrollIntoView({ behavior: "smooth" });
+      document.getElementById("productos")?.scrollIntoView({ behavior: "smooth" });
     }, 50);
   };
 
   return (
     <CartProvider>
-      <div id="carrito">
-        <Cart />
-      </div>
       <Navbar />
+      <main style={{ paddingTop: "70px" }}>
+        <Hero id="inicio" />
+        <section id="worlds">
+          <Worlds onSelectWorld={handleSelectWorld} />
+        </section>
+        <section id="productos">
+          <Catalog
+            selectedWorld={selectedWorld}
+            onClearWorld={() => setSelectedWorld(null)}
+          />
+        </section>
+      </main>
+      <Footer id="footer" />
 
-      <Navbar onCartClick={() => setShowCart(!showCart)} />
-        <Hero />
-      {showCart && <Cart />}
-      <Worlds onSelectWorld={handleSelectWorld} />
-      <Catalog
-        selectedWorld={selectedWorld}
-        onClearWorld={() => setSelectedWorld(null)}
-      />
+      <Cart />
     </CartProvider>
   );
 }
