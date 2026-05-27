@@ -8,13 +8,13 @@ import remeraLycraImg from "../../assets/productos/remeras-lycra.jpg";
 import pantalonEngomadoImg from "../../assets/productos/pantalon-engomado.jpg";
 
 const FILTERS = [
-  { id: null,       label: "Todos" },
-  { id: "moda",     label: "Ropa Femenina" },
-  { id: "stella",   label: "Stella - Manualidades" },
-  { id: "daniel",   label: "Daniel - Portamacetas en hierro" },
+  { id: null, label: "Todos" },
+  { id: "moda", label: "Ropa Femenina" },
+  { id: "stella", label: "Stella - Manualidades" },
+  { id: "daniel", label: "Daniel - Portamacetas en hierro" },
 ];
 
-const PRODUCTS = [
+const DEFAULT_PRODUCTS = [
   {
     id: 1,
     name: "Musculosa",
@@ -73,7 +73,20 @@ export default function Catalog({ selectedWorld, onClearWorld }) {
   // activeFilter syncs with selectedWorld prop (from Worlds card click)
   // but can also be changed locally via the filter buttons
   const [activeFilter, setActiveFilter] = useState(selectedWorld ?? null);
+  const [products, setProducts] = useState(DEFAULT_PRODUCTS);
   const { addToCart } = useCart();
+
+  // Cargar productos del localStorage si existen
+  useEffect(() => {
+    const savedProducts = localStorage.getItem("products");
+    if (savedProducts) {
+      try {
+        setProducts(JSON.parse(savedProducts));
+      } catch (e) {
+        setProducts(DEFAULT_PRODUCTS);
+      }
+    }
+  }, []);
 
   // When parent changes selectedWorld (via "Ver más"), sync it in
   useEffect(() => {
@@ -87,8 +100,8 @@ export default function Catalog({ selectedWorld, onClearWorld }) {
   };
 
   const filtered = activeFilter
-    ? PRODUCTS.filter((p) => p.world === activeFilter)
-    : PRODUCTS;
+    ? products.filter((p) => p.world === activeFilter)
+    : products;
 
   const handleAdd = (product, type) => {
     const price = type === "menor" ? product.priceMinor : product.priceMayor;
@@ -126,11 +139,18 @@ export default function Catalog({ selectedWorld, onClearWorld }) {
           {filtered.map((product) => (
             <div key={product.id} className={styles.card}>
               <div className={styles.imageWrap}>
-                {product.imageIsUrl ? (
-                  <img src={product.image} alt={product.name} className={styles.img} />
-                ) : (
+                {product.image &&
+                typeof product.image === "string" &&
+                (product.image.startsWith("http") ||
+                  product.image.startsWith("data:")) ? (
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className={styles.img}
+                  />
+                ) : typeof product.image === "string" ? (
                   <span className={styles.emoji}>{product.image}</span>
-                )}
+                ) : null}
                 <div className={styles.overlay}>
                   <h3 className={styles.cardName}>{product.name}</h3>
                   <p className={styles.cardDesc}>{product.description}</p>
@@ -139,20 +159,34 @@ export default function Catalog({ selectedWorld, onClearWorld }) {
 
               <div className={styles.prices}>
                 <div className={styles.priceRow}>
-                  <span className={styles.priceLabel}>{product.minorLabel || "Por menor"}</span>
-                  <span className={styles.priceValue}>${product.priceMinor.toLocaleString("es-AR")}</span>
+                  <span className={styles.priceLabel}>
+                    {product.minorLabel || "Por menor"}
+                  </span>
+                  <span className={styles.priceValue}>
+                    ${product.priceMinor.toLocaleString("es-AR")}
+                  </span>
                 </div>
                 <div className={styles.priceRow}>
-                  <span className={styles.priceLabel}>{product.mayorLabel || "Por mayor"}</span>
-                  <span className={`${styles.priceValue} ${styles.priceGreen}`}>${product.priceMayor.toLocaleString("es-AR")}</span>
+                  <span className={styles.priceLabel}>
+                    {product.mayorLabel || "Por mayor"}
+                  </span>
+                  <span className={`${styles.priceValue} ${styles.priceGreen}`}>
+                    ${product.priceMayor.toLocaleString("es-AR")}
+                  </span>
                 </div>
               </div>
 
               <div className={styles.footer}>
-                <button className={styles.btnMinor} onClick={() => handleAdd(product, "menor")}>
+                <button
+                  className={styles.btnMinor}
+                  onClick={() => handleAdd(product, "menor")}
+                >
                   {product.minorLabel || "Por menor"}
                 </button>
-                <button className={styles.btnMajor} onClick={() => handleAdd(product, "mayor")}>
+                <button
+                  className={styles.btnMajor}
+                  onClick={() => handleAdd(product, "mayor")}
+                >
                   {product.mayorLabel || "Por mayor"}
                 </button>
               </div>
